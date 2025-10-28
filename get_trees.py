@@ -6,8 +6,7 @@ util.reset_position()
 
 while(True):
 	for i in range(get_world_size()):
-		if can_harvest():
-			harvest()
+		harvest()
 		util.plant_tree()
 		move(North)
 	move(East)	

@@ -11,6 +11,10 @@ while(True):
 		for i in range(get_world_size()):
 			#util.try_water()
 			
+			#if get_ground_type() != Grounds.Soil:
+			#	harvest()
+			#	till()
+			
 			cost = get_cost(Entities.Pumpkin)[Items.Carrot]
 			
 			if get_entity_type() == Entities.Carrot and can_harvest():
