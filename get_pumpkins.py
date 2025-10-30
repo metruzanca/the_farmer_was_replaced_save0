@@ -1,35 +1,43 @@
+# Deterministic. Can re-run script after pausing/harvesting
+# and it won't start the farm over
+
 import util
 import config
 
-change_hat(Hats.Pumpkin_Hat)
-
-while(True):
-	
+def get_pumpkin(setup = False):
 	dead = False
+	size = get_world_size()
 	
-	for ii in range(get_world_size()):
-		for i in range(get_world_size()):
-			#util.try_water()
+	for ii in range(size):
+		for i in range(size):
 			
-			#if get_ground_type() != Grounds.Soil:
-			#	harvest()
-			#	till()
+			type = get_entity_type()
 			
-			cost = get_cost(Entities.Pumpkin)[Items.Carrot]
-			
-			if get_entity_type() == Entities.Carrot and can_harvest():
+			# If previous crop, harvest and replant
+			if type!= Entities.Pumpkin:
 				harvest()
-			
-			if num_items(Items.Carrot) > cost:
-				if get_entity_type() == Entities.Dead_Pumpkin or get_entity_type() == None:
-					plant(Entities.Pumpkin)
-					dead = True
-			else:
-				plant(Entities.Carrot)
-			
-			#plant(Entities.Pumpkin)
+	
+			# till takes 1 tick
+			if setup == True:
+				util.make_till()
+				
+			# If was dead, mark as dead
+			if type!= Entities.Pumpkin:
+				dead = True
+				plant(Entities.Pumpkin)
+
 			move(North)
 		move(East)
 	
 	if dead == False:
-		harvest()
+		#use_item(Items.Fertilizer)
+		util.Harvest()
+
+
+if __name__ == "__main__":
+	change_hat(Hats.Traffic_Cone)
+	util.reset_position()
+	change_hat(Hats.Pumpkin_Hat)
+	get_pumpkin(True)
+	while(True):
+		get_pumpkin()

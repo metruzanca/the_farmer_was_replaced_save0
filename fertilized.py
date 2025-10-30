@@ -1,12 +1,13 @@
 import util
 import config
 
-change_hat(Hats.Tree_Hat)
-util.reset_position()
+util.random_hat()
 
 while(True):
 	for i in range(get_world_size()):
 		harvest()
-		util.plant_tree()
+		util.make_till()
+		plant(Entities.Sunflower)
+		use_item(Items.Fertilizer)
 		move(North)
 	move(East)	

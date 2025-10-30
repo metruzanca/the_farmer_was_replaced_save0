@@ -3,6 +3,7 @@ entity_to_item = {
 	Entities.Tree: Items.Wood,
 	Entities.Carrot: Items.Carrot,
 	Entities.Grass: Items.Hay,
+	Entities.Treasure: Items.Gold,
 }
 
 

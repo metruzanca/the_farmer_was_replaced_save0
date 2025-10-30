@@ -71,3 +71,12 @@ def random_hat():
 			Hats.Traffic_Cone,
 		])
 	)
+
+def Harvest():
+	type = get_entity_type()
+	item = entity_to_item[type]
+
+	prev = num_items(item)
+	harvest()
+	new = num_items(item)
+	print("Harvested: ", new - prev, type)
