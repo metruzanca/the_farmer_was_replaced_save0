@@ -1,4 +1,7 @@
-import config
+goal_wood = 312 * 1000
+goal_hay = 76.8 * 1000
+goal_carrot = 1000
+
 
 def needsSoil(type):
 	if type == Entities.Carrot:
@@ -25,6 +28,7 @@ def till_farm():
 	print("Done ")
 
 def reset_position():
+	change_hat(Hats.Traffic_Cone)
 	while get_pos_x() > 0:
 		move(West)
 	while get_pos_y() > 0:
@@ -72,11 +76,48 @@ def random_hat():
 		])
 	)
 
-def Harvest():
+# Wraps func in infinite loop
+def repeat(func):
+	def inf():
+		while True:
+			func()
+	return inf
+
+entity_to_item = {
+	Entities.Pumpkin: Items.Pumpkin,
+	Entities.Tree: Items.Wood,
+	Entities.Carrot: Items.Carrot,
+	Entities.Grass: Items.Hay,
+	Entities.Treasure: Items.Gold,
+	Entities.Cactus: Items.Cactus,
+}
+
+entity_to_pretty = {
+	Entities.Pumpkin: "Pumpkins",
+	Entities.Tree: "Wood",
+	Entities.Carrot: "Carrots",
+	Entities.Grass: "Hay",
+	Entities.Treasure: "Gold",
+	Entities.Cactus: "Cacti",
+}
+
+def Harvest(time = None):
 	type = get_entity_type()
 	item = entity_to_item[type]
 
 	prev = num_items(item)
 	harvest()
 	new = num_items(item)
-	print("Harvested: ", new - prev, type)
+	count = new - prev
+	
+	pretty = entity_to_pretty[type]
+	
+	harvest_str = "Harvested: " + str(count) + pretty
+	
+	if time == None:	
+		print(harvest_str)
+	else:
+		time_str = "in " + str(time) + "s"
+		rate_str = "("+ str(count/time) + pretty + "/sec)"
+		print(harvest_str, time_str, rate_str)
+	return count

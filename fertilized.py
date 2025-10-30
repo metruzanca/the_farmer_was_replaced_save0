@@ -7,7 +7,7 @@ while(True):
 	for i in range(get_world_size()):
 		harvest()
 		util.make_till()
-		plant(Entities.Sunflower)
+		plant(Entities.Carrot)
 		use_item(Items.Fertilizer)
 		move(North)
 	move(East)	

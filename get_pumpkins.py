@@ -25,6 +25,7 @@ def get_pumpkin(setup = False):
 			if type!= Entities.Pumpkin:
 				dead = True
 				plant(Entities.Pumpkin)
+				use_item(Items.Fertilizer)
 
 			move(North)
 		move(East)
