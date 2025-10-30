@@ -83,6 +83,18 @@ def repeat(func):
 			func()
 	return inf
 
+# Spawns a new drone, if it can't runs on current drone
+def try_spawn(fn):
+	if num_drones() != max_drones():
+		return spawn_drone(fn)
+	fn()
+
+def spawn_all(fn):
+	while num_drones() != max_drones():
+		spawn_drone(fn)
+	fn()
+		
+
 entity_to_item = {
 	Entities.Pumpkin: Items.Pumpkin,
 	Entities.Tree: Items.Wood,

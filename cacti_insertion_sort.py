@@ -21,7 +21,7 @@ def tape_sort(length):
 # --- Main ---
 import util
 	
-def drone(size = 16):
+def drone(size = 22):
 	# Plant
 	for i in range(size):	
 		util.make_till()

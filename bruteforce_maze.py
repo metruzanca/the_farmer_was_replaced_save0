@@ -1,9 +1,10 @@
 import util
 import coords
 
-def create_maze():
+def create_maze(size = 2):
 	plant(Entities.Bush)
-	use_item(Items.Weird_Substance, 2)
+	substance = size * 2**(num_unlocked(Unlocks.Mazes) - 1)
+	use_item(Items.Weird_Substance, substance)
 
 def treasure_checker():
 	while True:
@@ -11,6 +12,7 @@ def treasure_checker():
 			harvest()
 				
 def main_drone():
+	create_maze(2)
 	while True:
 		type = get_entity_type()
 		if type != Entities.Hedge or type != Entities.Treasure:
@@ -25,18 +27,19 @@ set_world_size(4)
 
 util.reset_position()
 
-# place drone in every space
-spawn_drone(main_drone)
-move(North)
-spawn_drone(treasure_checker)
+def make_2x2():
+	# place drone in every space
+	spawn_drone(treasure_checker)
+	move(North)
+	spawn_drone(treasure_checker)
+	move(East)
+	spawn_drone(treasure_checker)
+	move(South)
+	util.try_spawn(main_drone)
+
+make_2x2()
 move(East)
-spawn_drone(treasure_checker)
-move(South)
-create_maze()
-treasure_checker()
-
-
-
+make_2x2()
 
 
 
